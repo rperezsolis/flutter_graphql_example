@@ -4,10 +4,10 @@ import 'package:graphql_example/models/rocket.dart';
 import 'package:graphql_example/models/ship.dart';
 import 'package:json_annotation/json_annotation.dart';
 
-part 'launches_past.g.dart';
+part 'launching.g.dart';
 
 @JsonSerializable(nullable: false)
-class LaunchesPast {
+class Launching {
   @JsonKey(name: 'mission_name')
   final String missionName;
   @JsonKey(name: 'launch_date_local')
@@ -18,8 +18,8 @@ class LaunchesPast {
   final Rocket rocket;
   final List<Ship> ships;
 
-  LaunchesPast({this.missionName, this.launchDateLocal, this.launchSite, this.links, this.rocket, this.ships,});
+  Launching({this.missionName, this.launchDateLocal, this.launchSite, this.links, this.rocket, this.ships,});
 
-  factory LaunchesPast.fromJson(Map<String, dynamic> json) => _$LaunchesPastFromJson(json);
-  Map<String, dynamic> toJson() => _$LaunchesPastToJson(this);
+  factory Launching.fromJson(Map<String, dynamic> json) => _$LaunchingFromJson(json);
+  Map<String, dynamic> toJson() => _$LaunchingToJson(this);
 }

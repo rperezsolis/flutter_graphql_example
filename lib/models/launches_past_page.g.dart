@@ -9,7 +9,7 @@ part of 'launches_past_page.dart';
 LaunchesPastPage _$LaunchesPastPageFromJson(Map<String, dynamic> json) {
   return LaunchesPastPage(
     launchesPast: (json['launchesPast'] as List)
-        .map((e) => LaunchesPast.fromJson(e as Map<String, dynamic>))
+        .map((e) => Launching.fromJson(e as Map<String, dynamic>))
         .toList(),
   );
 }

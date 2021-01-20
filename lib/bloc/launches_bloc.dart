@@ -1,13 +1,13 @@
-import 'package:graphql_example/models/launches_past.dart';
+import 'package:graphql_example/models/launching.dart';
 import 'package:graphql_example/models/launches_past_page.dart';
 import 'package:graphql_example/network_provider/launches_network_provider.dart';
 import 'package:rxdart/rxdart.dart';
 
 class LaunchesBloc {
   final _launchesNetworkProvider = LaunchesNetworkProvider();
-  final _launchesFetcher = PublishSubject<List<LaunchesPast>>();
-  Stream<List<LaunchesPast>> get launches => _launchesFetcher.stream;
-  List<LaunchesPast> _launchList = [];
+  final _launchesFetcher = PublishSubject<List<Launching>>();
+  Stream<List<Launching>> get launches => _launchesFetcher.stream;
+  List<Launching> _launchList = [];
 
   LaunchesBloc() {
     if(!_launchesFetcher.isClosed) {

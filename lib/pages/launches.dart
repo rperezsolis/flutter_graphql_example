@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
 import 'package:flutter/widgets.dart';
 import 'package:graphql_example/bloc/launches_bloc.dart';
-import 'package:graphql_example/models/launches_past.dart';
+import 'package:graphql_example/models/launching.dart';
 import 'package:url_launcher/url_launcher.dart';
 
 class Launches extends StatefulWidget {
@@ -42,10 +42,10 @@ class _LaunchesState extends State<Launches> {
         backgroundColor: Colors.black87,
         shadowColor: Colors.white70,
       ),
-      backgroundColor: Colors.white10,
+      backgroundColor: Colors.white24,
       body: StreamBuilder(
           stream: launchesBloc.launches,
-          builder: (context, AsyncSnapshot<List<LaunchesPast>> snapshot) {
+          builder: (context, AsyncSnapshot<List<Launching>> snapshot) {
             if(snapshot.hasData) {
               return _buildLaunchesList(snapshot.data);
             } else if(snapshot.hasError) {
@@ -76,44 +76,47 @@ class _LaunchesState extends State<Launches> {
     );
   }
 
-  Widget _buildLaunchesList(List<LaunchesPast> launchList) {
+  Widget _buildLaunchesList(List<Launching> launchList) {
     List<Widget> ships = [];
-    launchList.map((launching) => ships.add(
-        GridView.builder(
-          physics: NeverScrollableScrollPhysics(),
-          shrinkWrap: true,
-          gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
-            crossAxisCount: 2,
-            crossAxisSpacing: 10.0,
-          ),
-          itemCount: launching.ships.length,
-          itemBuilder: (context, index) {
-            return launching.ships[index] != null
-                && launching.ships[index].image != null
-                && launching.ships[index].name != null ?
-            Column(
-              mainAxisSize: MainAxisSize.min,
-              children: [
-                Image.network(
-                  launching.ships[index].image,
-                  fit: BoxFit.cover,
-                  width: MediaQuery.of(context).size.width/3,
-                  height: MediaQuery.of(context).size.width/4,
-                ),
-                Padding(
-                  padding: const EdgeInsets.all(4.0),
-                  child: Text(
-                    launching.ships[index].name,
-                    textAlign: TextAlign.center,
-                    style: TextStyle(color: Colors.white),
-                  ),
-                ),
-              ],
-            ) :
-            null;
-          },
-        )
-    )).toList();
+    launchList.forEach((launching) {
+      launching.ships.forEach((ship) {
+        if(ship != null && ship.image != null && ship.name != null) {
+          ships.add(
+            GridView.builder(
+              physics: NeverScrollableScrollPhysics(),
+              shrinkWrap: true,
+              gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+                crossAxisCount: 2,
+                crossAxisSpacing: 10.0,
+              ),
+              itemCount: launching.ships.length,
+              itemBuilder: (context, index) {
+                return Column(
+                  mainAxisSize: MainAxisSize.min,
+                  children: [
+                    Image.network(
+                      launching.ships[index].image,
+                      fit: BoxFit.cover,
+                      width: MediaQuery.of(context).size.width/3,
+                      height: MediaQuery.of(context).size.width/4,
+                    ),
+                    Padding(
+                      padding: const EdgeInsets.all(4.0),
+                      child: Text(
+                        launching.ships[index].name,
+                        textAlign: TextAlign.center,
+                        style: TextStyle(color: Colors.white,
+                            fontWeight: FontWeight.w300),
+                      ),
+                    ),
+                  ],
+                );
+              },
+            )
+          );
+        }
+      });
+    });
 
     return ListView.builder(
       controller: scrollController,
@@ -133,38 +136,42 @@ class _LaunchesState extends State<Launches> {
                     Center(
                       child: Text(
                         'Mission:',
-                        style: TextStyle(fontSize: 16, color: Colors.white),
+                        style: TextStyle(fontSize: 16, color: Colors.white,
+                            fontWeight: FontWeight.w300),
                       ),
                     ),
                     Center(
                       child: Text(
                         launchList[index].missionName,
-                        style: TextStyle(fontSize: 20, color: Theme.of(context).primaryColor),
+                        style: TextStyle(fontSize: 22, color: Colors.white),
                         textAlign: TextAlign.center,
                       ),
                     ),
                     SizedBox(height: 8,),
                     Text(
                       'Launch date:',
-                      style: TextStyle(fontSize: 16, color: Colors.white),
+                      style: TextStyle(fontSize: 14, color: Colors.white,
+                          fontWeight: FontWeight.w300),
                     ),
                     Text(
                       _getDate(launchList[index].launchDateLocal.toIso8601String()),
-                      style: TextStyle(fontSize: 16, color: Theme.of(context).primaryColor),
+                      style: TextStyle(fontSize: 16, color: Colors.white),
                     ),
                     SizedBox(height: 8,),
                     Text(
                       'Launch site:',
-                      style: TextStyle(fontSize: 16, color: Colors.white),
+                      style: TextStyle(fontSize: 14, color: Colors.white,
+                          fontWeight: FontWeight.w300),
                     ),
                     Text(
                       launchList[index].launchSite.siteNameLong,
-                      style: TextStyle(fontSize: 16, color: Theme.of(context).primaryColor),
+                      style: TextStyle(fontSize: 16, color: Colors.white),
                     ),
                     SizedBox(height: 8,),
                     Text(
                       'Video:',
-                      style: TextStyle(fontSize: 16, color: Colors.white),
+                      style: TextStyle(fontSize: 14, color: Colors.white,
+                          fontWeight: FontWeight.w300),
                     ),
                     GestureDetector(
                       child: Text(
@@ -178,11 +185,12 @@ class _LaunchesState extends State<Launches> {
                     SizedBox(height: 8,),
                     Text(
                       'Rocket:',
-                      style: TextStyle(fontSize: 16, color: Colors.white),
+                      style: TextStyle(fontSize: 14, color: Colors.white,
+                          fontWeight: FontWeight.w300),
                     ),
                     Text(
                       launchList[index].rocket.name,
-                      style: TextStyle(fontSize: 16, color: Theme.of(context).primaryColor),
+                      style: TextStyle(fontSize: 16, color: Colors.white),
                     ),
                     GestureDetector(
                       child: Text(
@@ -196,7 +204,8 @@ class _LaunchesState extends State<Launches> {
                     SizedBox(height: 8,),
                     Text(
                       'Ships:',
-                      style: TextStyle(fontSize: 16, color: Colors.white),
+                      style: TextStyle(fontSize: 14, color: Colors.white,
+                          fontWeight: FontWeight.w300),
                     ),
                     SizedBox(height: 8,),
                     ships[index],
