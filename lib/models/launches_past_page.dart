@@ -1,11 +1,11 @@
-import 'package:graphql_example/models/launches_past.dart';
+import 'package:graphql_example/models/launching.dart';
 import 'package:json_annotation/json_annotation.dart';
 
 part 'launches_past_page.g.dart';
 
 @JsonSerializable(nullable: false)
 class LaunchesPastPage {
-  final List<LaunchesPast> launchesPast;
+  final List<Launching> launchesPast;
 
   LaunchesPastPage({this.launchesPast});
 

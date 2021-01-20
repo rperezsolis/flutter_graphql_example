@@ -1,13 +1,13 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
-part of 'launches_past.dart';
+part of 'launching.dart';
 
 // **************************************************************************
 // JsonSerializableGenerator
 // **************************************************************************
 
-LaunchesPast _$LaunchesPastFromJson(Map<String, dynamic> json) {
-  return LaunchesPast(
+Launching _$LaunchingFromJson(Map<String, dynamic> json) {
+  return Launching(
     missionName: json['mission_name'] as String,
     launchDateLocal: DateTime.parse(json['launch_date_local'] as String),
     launchSite:
@@ -20,8 +20,7 @@ LaunchesPast _$LaunchesPastFromJson(Map<String, dynamic> json) {
   );
 }
 
-Map<String, dynamic> _$LaunchesPastToJson(LaunchesPast instance) =>
-    <String, dynamic>{
+Map<String, dynamic> _$LaunchingToJson(Launching instance) => <String, dynamic>{
       'mission_name': instance.missionName,
       'launch_date_local': instance.launchDateLocal.toIso8601String(),
       'launch_site': instance.launchSite,
