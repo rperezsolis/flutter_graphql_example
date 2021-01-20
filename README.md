@@ -1,16 +1,9 @@
 # graphql_example
 
-A new Flutter application.
-
-## Getting Started
-
-This project is a starting point for a Flutter application.
-
-A few resources to get you started if this is your first Flutter project:
-
-- [Lab: Write your first Flutter app](https://flutter.dev/docs/get-started/codelab)
-- [Cookbook: Useful Flutter samples](https://flutter.dev/docs/cookbook)
-
-For help getting started with Flutter, view our
-[online documentation](https://flutter.dev/docs), which offers tutorials,
-samples, guidance on mobile development, and a full API reference.
+This project illustrates how to implement a grqphql client into our flutter application making use of the package [graphql](https://pub.dev/packages/graphql).
+The example retrieves data of [SpaceX](https://www.spacex.com/) missions.
+It also use another useful packages, such as:
+- [rxdart](https://pub.dev/packages/rxdart) to help us to implement reactive programming using the bloc pattern.
+- [url_launcher](https://pub.dev/packages/url_launcher) to launch urls with a simple line of code.
+- [json_serializable](https://pub.dev/packages/json_serializable) which is really helpful when we want to parse the json response of the server into our object models. It creates for us all the boilerplate code necessary for that.
+- [build_runner](https://pub.dev/packages/build_runner) which is a build system for Dart code generation and modular compilation. It is used by the json_serializable package to create the json parser classes.
